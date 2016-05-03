@@ -34,13 +34,13 @@ namespace ADT01.Validation
         /// <returns></returns>
         public static bool IsUserValidated()
         {
-            string theUserName;     // SAM Account Name
+            string theUserName;     // sAM Account Name
             string theUserDomainName;
             string theUserPassword;
-            string theServerName;
+            //string theServerName;
             //int thePortNumber;
 
-            Console.WriteLine("Input the UserName (SAM) and press Enter");
+            Console.WriteLine("Input the UserName (sAM) and press Enter");
             theUserName = Console.ReadLine();
             Console.WriteLine("Input the UserDomainName and press Enter");
             theUserDomainName = Console.ReadLine();

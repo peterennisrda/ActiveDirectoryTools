@@ -1,0 +1,176 @@
+****************Is User Validated********************
+1. Press Enter to continue
+
+Input the UserName (sAM) and press Enter
+samuser
+Input the UserDomainName and press Enter
+example
+Input the UserPassword and press Enter
+***********
+Input the ServerName and press Enter
+exampledc
+Enter 389 for LDAP or 636 for LDAPS and press Enter
+636
+thePortNumber = 636
+nc = System.Net.NetworkCredential
+nc.UserName = samuser
+nc.Domain = example
+nc.Password = ************
+nc.SecurePassword = System.Security.SecureString
+lcon.AuthType = Basic
+************************User*************************
+theUserName = samuser
+theUserDomainName = example
+IsUserValidated() = True
+True
+
+*************List Active Directory Users*************
+2. Press Enter to continue
+
+Break at 20 users
+0 AAD_14db568e55f2
+1 abulldog
+2 Administrator
+3 agerman
+4 ahalo
+5 bblogger
+6 djones
+7 dright
+8 equeen
+9 Guest
+10 jcondo
+11 jdarcette
+12 krbtgt
+13 krenker
+14 krensure
+15 kword
+16 lfrench
+17 lhome
+18 lmarple
+19 nlauren
+
+*******************User Names in Group***************
+3. Press Enter to continue
+
+Domain
+example
+samuser
+Input the Server Context Name (e.g. example.com) and press Enter
+example.local
+theServerContextName = example.local
+Input the UserGroup and press Enter
+SARAnet
+user: Nancy Green, ngreen
+user: Sam User, samuser
+user: Ron Shue, rshue
+
+*******************Is User in Group******************
+4. Press Enter to continue
+
+Domain
+example
+samuser
+Input the Server Context Name (e.g. example.com) and press Enter
+example.local
+theServerContextName = example.local
+Input the UserGroup and press Enter
+SARAnet
+Input the UserName and press Enter
+ngreen
+user: Nancy Green, ngreen
+True
+
+******************User Details from AD***************
+5. Press Enter to continue
+
+Domain
+example
+samuser
+Input the Server Context Name (e.g. example.com) and press Enter
+example.local
+theServerContextName = example.local
+foreach searcher...
+0> de.Name = CN=Guest
+0> de.Properties["givenName"].Value =
+1> de.Name = CN=DEV$
+1> de.Properties["givenName"].Value =
+2> de.Name = CN=krbtgt
+2> de.Properties["givenName"].Value =
+3> de.Name = CN=Administrator
+3> de.Properties["givenName"].Value =
+4> de.Name = CN=Nancy Green
+4> de.Properties["givenName"].Value = Nancy
+5> de.Name = CN=Sam User
+5> de.Properties["givenName"].Value = Sam
+    First Name: Sam
+    Last Name : User
+    sAM account name   : samuser
+    User principal name: samuser@example.com
+    PropertyValueCollection
+objectClass : System.Object[]
+cn : Sam User
+sn : User
+givenName : Sam
+distinguishedName : CN=Sam User,OU=example,DC=example,DC=local
+instanceType : 4
+whenCreated : 5/11/2010 7:31:36 PM
+whenChanged : 4/28/2016 6:11:02 PM
+displayName : Sam User
+uSNCreated : System.__ComObject
+memberOf : System.Object[]
+uSNChanged : System.__ComObject
+proxyAddresses : SMTP:samuser@example.com
+nTSecurityDescriptor : System.__ComObject
+name : Sam User
+objectGUID : System.Byte[]
+userAccountControl : 66048
+badPwdCount : 0
+codePage : 0
+countryCode : 0
+badPasswordTime : System.__ComObject
+lastLogoff : System.__ComObject
+lastLogon : System.__ComObject
+pwdLastSet : System.__ComObject
+primaryGroupID : 513
+objectSid : System.Byte[]
+adminCount : 1
+accountExpires : System.__ComObject
+logonCount : 36
+sAMAccountName : samuser
+sAMAccountType : 805306368
+userPrincipalName : samuser@example.com
+objectCategory : CN=Person,CN=Schema,CN=Configuration,DC=example,DC=local
+dSCorePropagationData : System.Object[]
+lastLogonTimestamp : System.__ComObject
+6> de.Name = CN=Akonn Bulldog
+6> de.Properties["givenName"].Value = Akonn
+7> de.Name = CN=Alex Renny
+7> de.Properties["givenName"].Value = Alex
+8> de.Name = CN=Allan German
+8> de.Properties["givenName"].Value = Allan
+9> de.Name = CN=Amy Halo
+9> de.Properties["givenName"].Value = Amy
+10> de.Name = CN=Bill E. Blogger
+10> de.Properties["givenName"].Value = Bill
+11> de.Name = CN=David Right
+11> de.Properties["givenName"].Value = David
+12> de.Name = CN=Diana Jones
+12> de.Properties["givenName"].Value = Diana
+13> de.Name = CN=Elzbeth Queen
+13> de.Properties["givenName"].Value = Elzbeth
+14> de.Name = CN=John Jameson
+14> de.Properties["givenName"].Value = John
+15> de.Name = CN=Kevin Word
+15> de.Properties["givenName"].Value = Kevin
+16> de.Name = CN=Larry Marple
+16> de.Properties["givenName"].Value = Larry
+17> de.Name = CN=Lindsey Home
+17> de.Properties["givenName"].Value = Lindsey
+18> de.Name = CN=Liz French
+18> de.Properties["givenName"].Value = Liz
+19> de.Name = CN=Nick Lauren
+19> de.Properties["givenName"].Value = Nick
+Break at 20 users
+
+******************Exit the Program*******************
+6. Press Enter to exit

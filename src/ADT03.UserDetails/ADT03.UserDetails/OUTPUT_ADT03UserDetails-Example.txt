@@ -1,0 +1,46 @@
+******************User Details from AD***************
+1. Press Enter to continue
+
+    First Name: Jiminy
+    Last Name : Cricket
+    sAM account name   : jiminycricket
+    User principal name: jiminycricket@example.com
+    PropertyValueCollection
+objectClass : System.Object[]
+cn : Jiminy Cricket
+sn : Cricket
+givenName : Jiminy
+distinguishedName : CN=Jiminy Cricket,OU=EXA,DC=example,DC=local
+instanceType : 4
+whenCreated : 5/11/2010 7:31:36 PM
+whenChanged : 4/20/2016 11:33:32 PM
+displayName : Jiminy Cricket
+uSNCreated : System.__ComObject
+memberOf : System.Object[]
+uSNChanged : System.__ComObject
+proxyAddresses : SMTP:jiminycricket@example.com
+nTSecurityDescriptor : System.__ComObject
+name : Jiminy Cricket
+objectGUID : System.Byte[]
+userAccountControl : 66048
+badPwdCount : 0
+codePage : 0
+countryCode : 0
+badPasswordTime : System.__ComObject
+lastLogoff : System.__ComObject
+lastLogon : System.__ComObject
+pwdLastSet : System.__ComObject
+primaryGroupID : 513
+objectSid : System.Byte[]
+adminCount : 1
+accountExpires : System.__ComObject
+logonCount : 25
+sAMAccountName : jiminycricket
+sAMAccountType : 805306368
+userPrincipalName : jiminycricket@example.com
+objectCategory : CN=Person,CN=Schema,CN=Configuration,DC=example,DC=local
+dSCorePropagationData : System.Object[]
+lastLogonTimestamp : System.__ComObject
+
+******************Exit the Program*******************
+2. Press Enter to exit

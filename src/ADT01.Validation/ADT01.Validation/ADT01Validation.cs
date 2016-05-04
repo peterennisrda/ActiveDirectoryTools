@@ -17,7 +17,8 @@ namespace ADT01.Validation
         /// <param name="optionalDCName">Name of the specific DC if one is desired</param>
         /// <param name="contextOptions">Type of authentication and data transfer; default set to Sealed since that is encrypted but doesn't require certificate setup... pass SecureSocketLayer to use TLS instead</param>
         /// <returns>Credential validate success; doesn't trap errors so exceptions could be thrown</returns>
-        public static bool ValidateCredentials(string userName, string domainName, string password, string optionalDCName = null, ContextOptions contextOptions = ContextOptions.Sealing)
+        //public static bool ValidateCredentials(string userName, string domainName, string password, string optionalDCName = null, ContextOptions contextOptions = ContextOptions.Sealing)
+        public static bool ValidateCredentials(string userName, string domainName, string password, string optionalDCName = null, ContextOptions contextOptions = ContextOptions.SecureSocketLayer)
         {
             //This isn't catching exceptions
             bool dcSpecified = string.IsNullOrEmpty(optionalDCName);

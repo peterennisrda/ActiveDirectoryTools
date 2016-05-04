@@ -438,7 +438,9 @@ namespace ADT01.Validation
                 else if (TryConnect(dc, LdapGcSSLPort))
                 {
                     serverNameUsed = dc;
-                    //You could roll your own validator using LDAPConnection for this if you wanted and as I have done for a fallback on the above where the ldap options set for the session within the .NET library can cause credential validation to fail, but the ValidateCredentials method is hard coded to the other port
+                    //You could roll your own validator using LDAPConnection for this if you wanted and as I have done for a fallback on
+                    //the above where the ldap options set for the session within the .NET library can cause credential validation to fail,
+                    //but the ValidateCredentials method is hard coded to the other port
                     try
                     {
                         return ManuallyValidateTLSCredentials(username, domainname, password, dc, LdapGcSSLPort);

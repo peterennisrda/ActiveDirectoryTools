@@ -3,6 +3,7 @@ using System;
 using System.DirectoryServices.Protocols;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Runtime.InteropServices;
@@ -12,6 +13,7 @@ using System.Text;
 
 namespace ADT00DomainInfo
 {
+    #region Flags
     [Flags]
     public enum DsFlag : uint
     {
@@ -57,6 +59,7 @@ namespace ADT00DomainInfo
         DS_DNS_DOMAIN_FLAG = 0x40000000,// DomainName is a DNS name
         DS_DNS_FOREST_FLAG = 0x80000000    // DnsForestName is a DNS name
     }
+    #endregion
 
     public enum DomainControllerAddressType : int
     {
@@ -81,11 +84,12 @@ namespace ADT00DomainInfo
     public enum DsEnumerateOptions : int
     {
         None = 0,
-        DS_ONLY_DO_SITE_NAME = 0x01,     // Non-site specific names should be avoided.
+        DS_ONLY_DO_SITE_NAME = 0x01,             // Non-site specific names should be avoided.
         DS_NOTIFY_AFTER_SITE_RECORDS = 0x02      // Return ERROR_FILEMARK_DETECTED after all
-                                                 //  site specific records have been processed.
+                                                 // site specific records have been processed.
     }
 
+    #region NativeMethods
     public static class NativeMethods
     {
         [DllImport("NetApi32.dll", CharSet = CharSet.Unicode)]
@@ -129,7 +133,9 @@ namespace ADT00DomainInfo
         [DllImport("NetApi32.dll", CharSet = CharSet.Unicode)]
         public static extern void DsGetDcCloseW(IntPtr GetDcContext);
     }
+    #endregion
 
+    #region NativeWrapped
     public static class NativeWrapped
     {
         internal static void ThrowLastError()
@@ -183,7 +189,9 @@ namespace ADT00DomainInfo
             }
         }
     }
+    #endregion
 
+    #region Helpers
     public static class Helpers
     {
         public static IEnumerable<string> GetFlagsFromEnum<T>(T val) //we can't constrain on T : Enum but we can throw of T is not an enum... weird language quirk
@@ -273,7 +281,7 @@ namespace ADT00DomainInfo
                 OutputToConsole(2, "{0}:\t{1}", "Flags", string.Join(", ", GetFlagsFromEnum<DsReturnFlags>(dci.Flags)));
                 OutputNetworkResolutionInformationToConsole(2, dci.DomainControllerAddress);
                 OutputToConsole(1, "Results from DsGetDcNext for {0}:", dci.DomainName);
-                //Note the following won't get results from RoDCs
+                //Note: The following won't get results from RoDCs
                 var dcs = NativeWrapped.EnumerateDCs(dci.DomainName, DsFlag.None);
                 foreach (var dc in dcs)
                 {
@@ -284,7 +292,6 @@ namespace ADT00DomainInfo
             {
                 OutputToConsole(0, "Error outputting domain information for {0} retrieved from {2}:\t{1}", domain, ex, string.IsNullOrEmpty(machine) ? "localhost" : machine);
             }
-
         }
 
         public static void OutputDomainFindingInfoToConsoleForDomain(string domain)
@@ -323,19 +330,18 @@ namespace ADT00DomainInfo
             }
         }
     }
+    #endregion
 
     class Program
     {
- 
+        #region User Details from AD
 
-
-
-        #region 5. User Details from AD
-
-        #region CPL @ MSFT Added
-        //UserDetails may work but is significantly more code than necessary and requires enumerating all users in the domain, effectively, to work
+        //More efficient implementation of UserDetails that does not require enumerating all users in the domain, effectively, to work.
         //There's actually a simple property off of UserPrincipal that will get that information
         //For a user other than the current user, forego the PrincipalSearcher and use UserPrincipal.FindByIdentity
+        /// <summary>
+        /// Get details from user's active directory account
+        /// </summary>
         public static DirectoryEntry CurrentUserEntry
         {
             get
@@ -344,7 +350,7 @@ namespace ADT00DomainInfo
             }
         }
 
-        public static void UserDetails2()
+        public static void UserDetails()
         {
             var de = CurrentUserEntry;
             if (de != null)
@@ -360,49 +366,6 @@ namespace ADT00DomainInfo
                     Console.WriteLine(col.PropertyName + " : " + col.Value);
                     Console.WriteLine();
                 }
-            }
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Get details from user's active directory account
-        /// </summary>
-        public static void UserDetails()
-        {
-            try
-            {
-                Console.WriteLine(ContextType.Domain);
-                Console.WriteLine(Environment.UserDomainName);
-                Console.WriteLine(Environment.UserName);
-                using (var context = new PrincipalContext(ContextType.Domain, Environment.UserDomainName))
-                {
-                    using (var searcher = new PrincipalSearcher(new UserPrincipal(context)))
-                    {
-                        foreach (var result in searcher.FindAll())
-                        {
-                            DirectoryEntry de = result.GetUnderlyingObject() as DirectoryEntry;
-                            if ((string)de.Properties["givenName"].Value == Environment.UserName)
-                            {
-                                Console.WriteLine("First Name: " + de.Properties["givenName"].Value);
-                                Console.WriteLine("Last Name : " + de.Properties["sn"].Value);
-                                Console.WriteLine("SAM account name   : " + de.Properties["samAccountName"].Value);
-                                Console.WriteLine("User principal name: " + de.Properties["userPrincipalName"].Value);
-                                Console.WriteLine("PropertyValueCollection");
-                                PropertyCollection pc = de.Properties;
-                                foreach (PropertyValueCollection col in pc)
-                                {
-                                    Console.WriteLine(col.PropertyName + " : " + col.Value);
-                                    Console.WriteLine();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("An error occurred...");
             }
         }
         #endregion
@@ -446,12 +409,12 @@ namespace ADT00DomainInfo
             Helpers.OutputDomainFindingInfoToConsole(additionalDomains, additionalMachines);
 
             Console.WriteLine("******************User Details from AD***************");
-            Console.WriteLine("5. Press Enter to continue");
+            Console.WriteLine("Press Enter to continue");
             Console.ReadLine();
-            UserDetails2();
+            UserDetails();
 
             Console.WriteLine("******************Exit the Program*******************");
-            Console.WriteLine("6. Press Enter to exit");
+            Console.WriteLine("Press Enter to exit");
             Console.ReadLine();
         }
         #endregion

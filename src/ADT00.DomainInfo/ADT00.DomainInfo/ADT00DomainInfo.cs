@@ -218,7 +218,7 @@ namespace ADT00DomainInfo
 
         public static void TraceRoute(int tabs, IPAddress ip)
         {
-            int MAX_TTL = 26;
+            int MAX_TTL = 6;
 
             try
             {

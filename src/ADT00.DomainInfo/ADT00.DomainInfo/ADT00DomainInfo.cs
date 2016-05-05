@@ -218,6 +218,8 @@ namespace ADT00DomainInfo
 
         public static void TraceRoute(int tabs, IPAddress ip)
         {
+            int MAX_TTL = 26;
+
             try
             {
                 PingOptions po = new PingOptions();
@@ -225,7 +227,7 @@ namespace ADT00DomainInfo
                 //We trace the route by setting the ttl at one and increasing by one each time
                 //When it hits the address we're trying to hit, we're done
                 //Otherwise, an address on the way will reply that the ttl expired
-                while (po.Ttl < 50) //Capping the route at fifty
+                while (po.Ttl < MAX_TTL) //Capping the route at MAX_TTL
                 {
                     Ping p = new Ping();
                     var pr = p.Send(ip, 5000, new byte[] { 0 }, po);
@@ -234,6 +236,7 @@ namespace ADT00DomainInfo
                     if (pr.Address == null) continue;
                     if (pr.Address.Equals(ip)) break;
                 }
+                Console.WriteLine("TraceRoute Ping < " + MAX_TTL);
             }
             catch (Exception ex)
             {
@@ -355,16 +358,15 @@ namespace ADT00DomainInfo
             var de = CurrentUserEntry;
             if (de != null)
             {
-                Console.WriteLine("    First Name: " + de.Properties["givenName"].Value);
-                Console.WriteLine("    Last Name : " + de.Properties["sn"].Value);
-                Console.WriteLine("    sAM account name   : " + de.Properties["samAccountName"].Value);
-                Console.WriteLine("    User principal name: " + de.Properties["userPrincipalName"].Value);
-                Console.WriteLine("    PropertyValueCollection");
+                Console.WriteLine("First Name: " + de.Properties["givenName"].Value);
+                Console.WriteLine("Last Name : " + de.Properties["sn"].Value);
+                Console.WriteLine("SAM account name   : " + de.Properties["samAccountName"].Value);
+                Console.WriteLine("User principal name: " + de.Properties["userPrincipalName"].Value);
+                Console.WriteLine("PropertyValueCollection");
                 PropertyCollection pc = de.Properties;
                 foreach (PropertyValueCollection col in pc)
                 {
                     Console.WriteLine(col.PropertyName + " : " + col.Value);
-                    Console.WriteLine();
                 }
             }
         }
@@ -408,11 +410,13 @@ namespace ADT00DomainInfo
 
             Helpers.OutputDomainFindingInfoToConsole(additionalDomains, additionalMachines);
 
+            Console.WriteLine();
             Console.WriteLine("******************User Details from AD***************");
             Console.WriteLine("Press Enter to continue");
             Console.ReadLine();
             UserDetails();
 
+            Console.WriteLine();
             Console.WriteLine("******************Exit the Program*******************");
             Console.WriteLine("Press Enter to exit");
             Console.ReadLine();

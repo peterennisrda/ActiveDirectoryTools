@@ -5,4 +5,4 @@ ___________
 
 # Active Directory Tools
 
-Connection and Authentication to Active Directory for Intranet Applications 
+Connection Authentication to Active Directory and Authorization Verification for Intranet Applications 

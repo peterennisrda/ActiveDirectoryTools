@@ -1,7 +1,7 @@
 ****************Is User Validated********************
 1. Press Enter to continue
 
-Input the UserName (sAM) and press Enter
+Input the UserName (SAM Account Name) and press Enter
 samuser
 Input the UserDomainName and press Enter
 example

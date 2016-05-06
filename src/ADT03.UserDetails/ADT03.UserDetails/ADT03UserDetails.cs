@@ -1,16 +1,11 @@
 ﻿#region NameSpaces
 using System;
-using System.Net;
-using System.Net.NetworkInformation;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
-using System.Runtime.InteropServices;
-using System.Collections.Generic;
-using System.Text;
 #endregion
 
 namespace ADT03UserDetails
-{  
+{
     class Program
     {
         #region 1. User Details from AD
@@ -30,11 +25,11 @@ namespace ADT03UserDetails
             var de = CurrentUserEntry;
             if (de != null)
             {
-                Console.WriteLine("    First Name: " + de.Properties["givenName"].Value);
-                Console.WriteLine("    Last Name : " + de.Properties["sn"].Value);
-                Console.WriteLine("    sAM account name   : " + de.Properties["samAccountName"].Value);
-                Console.WriteLine("    User principal name: " + de.Properties["userPrincipalName"].Value);
-                Console.WriteLine("    PropertyValueCollection");
+                Console.WriteLine("First Name: " + de.Properties["givenName"].Value);
+                Console.WriteLine("Last Name : " + de.Properties["sn"].Value);
+                Console.WriteLine("SAM account name   : " + de.Properties["samAccountName"].Value);
+                Console.WriteLine("User principal name: " + de.Properties["userPrincipalName"].Value);
+                Console.WriteLine("PropertyValueCollection");
                 PropertyCollection pc = de.Properties;
                 foreach (PropertyValueCollection col in pc)
                 {

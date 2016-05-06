@@ -461,13 +461,13 @@ namespace ADT01.Validation
         /// <returns></returns>
         public static bool IsUserValidated()
         {
-            string theUserName;     // sAM Account Name
+            string theUserName;     // SAM Account Name
             string theUserDomainName;
             string theUserPassword;
 
             //int thePortNumber;
 
-            Console.WriteLine("Input the UserName (sAM) and press Enter");
+            Console.WriteLine("Input the UserName (SAM Account Name) and press Enter");
             theUserName = Console.ReadLine();
             Console.WriteLine("Input the UserDomainName and press Enter");
             theUserDomainName = Console.ReadLine();

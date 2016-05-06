@@ -27,7 +27,7 @@ namespace ADToolsBasic
             string theServerName;
             int thePortNumber;
 
-            Console.WriteLine("Input the UserName (sAM) and press Enter");
+            Console.WriteLine("Input the UserName (SAM Account Name) and press Enter");
             theUserName = Console.ReadLine();
             Console.WriteLine("Input the UserDomainName and press Enter");
             theUserDomainName = Console.ReadLine();

@@ -24,7 +24,7 @@ namespace ADT02.ConnectLDAP
             {
                 if (args.Length == 0)
                 {
-                    string theUserName;     // sAM Account Name
+                    string theUserName;     // SAM Account Name
                     string theUserDomainName;
                     string theUserPassword;
 
@@ -33,7 +33,7 @@ namespace ADT02.ConnectLDAP
                     Console.ReadLine();
                     Console.WriteLine("Input the LDAP ServerName and press Enter");
                     ldapServer = Console.ReadLine();
-                    Console.WriteLine("Input UserName (sAM) and press Enter");
+                    Console.WriteLine("Input UserName (SAM Account Name) and press Enter");
                     theUserName = Console.ReadLine();
                     Console.WriteLine("Input UserPassword and press Enter");
                     theUserPassword = ReadPassword();
@@ -60,7 +60,8 @@ namespace ADT02.ConnectLDAP
                 Console.WriteLine("Setting the credentials property marks the object to perform a new Bind()");
                 Console.WriteLine("if it’s already bound the next time it would need to be used to get data from the ldap server.");
                 Console.WriteLine();
-                Console.WriteLine("2. Press Enter to exit");
+                Console.WriteLine("******************Exit the Program*******************");
+                Console.WriteLine("Press Enter to exit");
                 Console.ReadLine();
             }
             catch (Exception ex)

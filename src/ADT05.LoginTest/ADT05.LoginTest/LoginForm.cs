@@ -25,6 +25,11 @@ namespace ADT05.LoginTest
             }
             try
             {
+                bool IsAuthenticated = false;
+                //Validation v = new Validation();
+
+                IsAuthenticated = Validation.IsUserValidated(txtSAMAccountName.Text, "rda.local", txtPassword.Text);
+
                 if (txtSAMAccountName.Text == "peter")
                 {
                     // The login is authenticated

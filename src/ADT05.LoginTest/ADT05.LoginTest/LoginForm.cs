@@ -26,11 +26,11 @@ namespace ADT05.LoginTest
             try
             {
                 bool IsAuthenticated = false;
-                //Validation v = new Validation();
 
-                IsAuthenticated = Validation.IsUserValidated(txtSAMAccountName.Text, "rda.local", txtPassword.Text);
+                IsAuthenticated = Validation.IsUserValidated(txtSAMAccountName.Text, "Parse_theDnsNameRootDSE", txtPassword.Text);
+                MessageBox.Show("IsAuthenticated = " + IsAuthenticated);
 
-                if (txtSAMAccountName.Text == "peter")
+                if (IsAuthenticated)
                 {
                     // The login is authenticated
                     MessageBox.Show("Login Authenticated!");

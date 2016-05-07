@@ -43,13 +43,13 @@ namespace ADT03UserDetails
         static void Main(string[] args)
         {
             Console.WriteLine("******************User Details from AD***************");
-            Console.WriteLine("1. Press Enter to continue");
+            Console.WriteLine("Press Enter to continue");
             Console.ReadLine();
             UserDetails();
 
             Console.WriteLine();
             Console.WriteLine("******************Exit the Program*******************");
-            Console.WriteLine("2. Press Enter to exit");
+            Console.WriteLine("Press Enter to exit");
             Console.ReadLine();
         }
         #endregion

@@ -9,7 +9,6 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Text;
-using System.Windows.Forms;
 #endregion
 
 class ADValidation
@@ -62,6 +61,7 @@ class ADValidation
     }
     #endregion
 
+    #region DCinfo
     public enum DomainControllerAddressType : int
     {
         DS_INET_ADDRESS = 1,
@@ -89,6 +89,7 @@ class ADValidation
         DS_NOTIFY_AFTER_SITE_RECORDS = 0x02      // Return ERROR_FILEMARK_DETECTED after all
                                                  // site specific records have been processed.
     }
+    #endregion
 
     #region NativeMethods
     public static class NativeMethods
@@ -512,69 +513,20 @@ class ADValidation
         }
         #endregion
 
-        //#region 2. User Names in Group
-        ///// <summary>
-        ///// Get user names from selected group
-        ///// </summary>
-        //public static void ListUsersInGroup()
-        //{
-        //    string theUserGroup;
-
-        //    try
-        //    {
-        //        Console.WriteLine(ContextType.Domain);
-        //        Console.WriteLine(Environment.UserDomainName);
-        //        Console.WriteLine(Environment.UserName);
-
-        //        // Set up domain context
-        //        PrincipalContext ctx = new PrincipalContext(ContextType.Domain);
-        //        // Find the group in question
-        //        Console.WriteLine("Input the UserGroup and press Enter");
-        //        theUserGroup = Console.ReadLine();
-        //        GroupPrincipal group = GroupPrincipal.FindByIdentity(ctx, theUserGroup);
-        //        // If found...
-        //        if (group != null)
-        //        {
-        //            // Iterate over members
-        //            foreach (Principal p in group.GetMembers())
-        //            {
-        //                Console.WriteLine("{0}: {1}, {2}", p.StructuralObjectClass, p.DisplayName, p.SamAccountName);
-        //            }
-        //        }
-        //        Console.WriteLine();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        Console.WriteLine("An error occurred...");
-        //    }
-        //}
-        //#endregion
-
     #region 2. Is User Authorized
     /// <summary>
     /// Test if the user is a member of the selected group
     /// </summary>
     public static bool IsUserInGroup(string userName, string domainName, string userGroup)
     {
-//        string theUserGroup;
-//        string theUserName;
         bool validation;
 
         try
         {
             validation = false;
 
-//            Console.WriteLine(ContextType.Domain);
-//            Console.WriteLine(Environment.UserDomainName);
-//            Console.WriteLine(Environment.UserName);
-
             // Set up domain context
             PrincipalContext ctx = new PrincipalContext(ContextType.Domain);
-//            // Find the group in question
-//            Console.WriteLine("Input the UserGroup and press Enter");
-//            theUserGroup = Console.ReadLine();
-//            Console.WriteLine("Input the UserName and press Enter");
-//            theUserName = Console.ReadLine();
             GroupPrincipal group = GroupPrincipal.FindByIdentity(ctx, userGroup);
             // If found...
             if (group != null)
@@ -608,70 +560,4 @@ class ADValidation
         }
     }
     #endregion
-
-        //#region Read the User Password
-        //public static string ReadPassword()
-        //{
-        //    // Ref: http://stackoverflow.com/questions/29201697/hide-replace-when-typing-a-password-c
-        //    string password = "";
-        //    ConsoleKeyInfo info = Console.ReadKey(true);
-        //    while (info.Key != ConsoleKey.Enter)
-        //    {
-        //        if (info.Key != ConsoleKey.Backspace)
-        //        {
-        //            Console.Write("*");
-        //            password += info.KeyChar;
-        //        }
-        //        else if (info.Key == ConsoleKey.Backspace)
-        //        {
-        //            if (!string.IsNullOrEmpty(password))
-        //            {
-        //                // Remove one character from the list of password characters
-        //                password = password.Substring(0, password.Length - 1);
-        //                // Get the location of the cursor
-        //                int pos = Console.CursorLeft;
-        //                // Move the cursor to the left by one character
-        //                Console.SetCursorPosition(pos - 1, Console.CursorTop);
-        //                // Replace it with space
-        //                Console.Write(" ");
-        //                // Move the cursor to the left by one character again
-        //                Console.SetCursorPosition(pos - 1, Console.CursorTop);
-        //            }
-        //        }
-        //        info = Console.ReadKey(true);
-        //    }
-        //    // Add a new line because user pressed enter at the end of their password
-        //    Console.WriteLine();
-        //    return password;
-        //}
-        //#endregion
-
-    /*
-        #region Main
-       
-        static void Main(string[] args)
-        {
-            Console.WriteLine("****************Is User Validated********************");
-            Console.WriteLine("1. Press Enter to continue");
-            Console.ReadLine();
-            Console.WriteLine(IsUserValidated());
-            Console.WriteLine();
-
-            Console.WriteLine("****************User Names in Group******************");
-            Console.WriteLine("2. Press Enter to continue");
-            Console.ReadLine();
-            ListUsersInGroup();
-
-            Console.WriteLine("****************Is User in Group*********************");
-            Console.WriteLine("3. Press Enter to continue");
-            Console.ReadLine();
-            Console.WriteLine(IsUserInGroup());
-            Console.WriteLine();
-
-            Console.WriteLine("******************Exit the Program*******************");
-            Console.WriteLine("4. Press Enter to exit");
-            Console.ReadLine();
-        } 
-        #endregion
-    */
-    }
+}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Authentication;
 using System.Windows.Forms;
 
 namespace ADT05.LoginTest
@@ -48,10 +49,12 @@ namespace ADT05.LoginTest
                 else
                 {
                     MessageBox.Show("Login Failed!");
+                    ClearForm1();
+                    throw new InvalidCredentialException();
                 }
 
                 IsUserAuthorized = ADValidation.IsUserInGroup(txtSAMAccountName.Text, theDnsHostName, txtAppGroup.Text);
-                MessageBox.Show("IsUserAuthorized = " + IsUserAuthorized);
+                //MessageBox.Show("IsUserAuthorized = " + IsUserAuthorized);
 
                 if (IsUserAuthorized)
                 {
@@ -60,7 +63,9 @@ namespace ADT05.LoginTest
                 }
                 else
                 {
-                    MessageBox.Show("Login Failed!");
+                    MessageBox.Show("Authorization Failed!");
+                    ClearForm1();
+                    throw new InvalidCredentialException();
                 }
                 ClearForm1();
             }

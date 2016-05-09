@@ -1,5 +1,6 @@
 ﻿#region NameSpaces
 using System;
+using System.DirectoryServices;
 using System.DirectoryServices.Protocols;
 using System.DirectoryServices.AccountManagement;
 using System.Net;
@@ -332,20 +333,41 @@ class ADValidation
     }
     #endregion
 
-//    class Program
-//    {
-        #region 1. Is User Validated
-        /// <summary>
-        /// This is the easier way to validate credentials using .NET objects
-        /// </summary>
-        /// <param name="userName">User Name</param>
-        /// <param name="domainName">Domain Name</param>
-        /// <param name="password">Password</param>
-        /// <param name="optionalDCName">Name of the specific DC if one is desired</param>
-        /// <param name="contextOptions">Type of authentication and data transfer; default set to Sealed since that is encrypted but doesn't require certificate setup... pass SecureSocketLayer to use TLS instead</param>
-        /// <returns>Credential validate success; doesn't trap errors so exceptions could be thrown</returns>
-        //public static bool ValidateCredentials(string userName, string domainName, string password, string optionalDCName = null, ContextOptions contextOptions = ContextOptions.Sealing)
-        public static bool ValidateCredentials(string userName, string domainName, string password, string optionalDCName = null, ContextOptions contextOptions = ContextOptions.SecureSocketLayer)
+    #region DnsHostNameRootDse
+    // Ref: http://stackoverflow.com/questions/4015407/determine-current-domain-controller-programmatically
+    public static string RetrieveDnsHostNameRootDseDefaultNamingContext()
+    {
+        string dnsHostName = "";
+        String RootDsePath = "LDAP://RootDSE";
+        const string DefaultNamingContextPropertyName = "defaultNamingContext";
+
+        DirectoryEntry rootDse = new DirectoryEntry(RootDsePath)
+        {
+            AuthenticationType = AuthenticationTypes.Secure
+        };
+
+        dnsHostName = (string)rootDse.Properties["dnsHostName"].Value;
+        //Console.WriteLine("dnsHostName = " + dnsHostName);
+
+        dnsHostName = dnsHostName + "|";
+        object combinedPropertyValue = dnsHostName + rootDse.Properties[DefaultNamingContextPropertyName].Value;
+
+        return combinedPropertyValue != null ? combinedPropertyValue.ToString() : null;
+    }
+    #endregion
+
+    #region 1. Is User Validated
+    /// <summary>
+    /// This is the easier way to validate credentials using .NET objects
+    /// </summary>
+    /// <param name="userName">User Name</param>
+    /// <param name="domainName">Domain Name</param>
+    /// <param name="password">Password</param>
+    /// <param name="optionalDCName">Name of the specific DC if one is desired</param>
+    /// <param name="contextOptions">Type of authentication and data transfer; default set to Sealed since that is encrypted but doesn't require certificate setup... pass SecureSocketLayer to use TLS instead</param>
+    /// <returns>Credential validate success; doesn't trap errors so exceptions could be thrown</returns>
+    //public static bool ValidateCredentials(string userName, string domainName, string password, string optionalDCName = null, ContextOptions contextOptions = ContextOptions.Sealing)
+    public static bool ValidateCredentials(string userName, string domainName, string password, string optionalDCName = null, ContextOptions contextOptions = ContextOptions.SecureSocketLayer)
         {
             //This isn't catching exceptions
             bool dcSpecified = string.IsNullOrEmpty(optionalDCName);

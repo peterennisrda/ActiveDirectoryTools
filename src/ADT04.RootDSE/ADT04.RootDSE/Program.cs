@@ -11,7 +11,7 @@ namespace ADT04RootDSE
         static string theDnsHostNameRootDSE = "";
 
         // Ref: http://stackoverflow.com/questions/4015407/determine-current-domain-controller-programmatically
-        public static string RetrieveRootDseDefaultNamingContext()
+        public static string RetrieveDnsHostNameRootDseDefaultNamingContext()
         {
             String RootDsePath = "LDAP://RootDSE";
             const string DefaultNamingContextPropertyName = "defaultNamingContext";
@@ -36,7 +36,7 @@ namespace ADT04RootDSE
             string theDnsHostName = "";
             string theRootDSE = "";
 
-            theDnsHostNameRootDSE = RetrieveRootDseDefaultNamingContext();
+            theDnsHostNameRootDSE = RetrieveDnsHostNameRootDseDefaultNamingContext();
             Console.WriteLine("The dnsHostName|rootDSE is " + theDnsHostNameRootDSE);
             string[] subStrings = theDnsHostNameRootDSE.Split('|');
 

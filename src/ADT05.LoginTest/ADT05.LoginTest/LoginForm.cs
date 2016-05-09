@@ -26,8 +26,16 @@ namespace ADT05.LoginTest
             try
             {
                 bool IsAuthenticated = false;
+                string theDnsHostNameRootDSE = "";
+                string theDnsHostName = "";
+                string theRootDSE = "";
 
-                IsAuthenticated = ADValidation.IsUserValidated(txtSAMAccountName.Text, "Parse_theDnsNameRootDSE", txtPassword.Text);
+                theDnsHostNameRootDSE = ADValidation.RetrieveDnsHostNameRootDseDefaultNamingContext();
+                string[] subStrings = theDnsHostNameRootDSE.Split('|');
+                theDnsHostName = subStrings[0];
+                theRootDSE = subStrings[1];
+
+                IsAuthenticated = ADValidation.IsUserValidated(txtSAMAccountName.Text, theDnsHostName, txtPassword.Text);
                 MessageBox.Show("IsAuthenticated = " + IsAuthenticated);
 
                 if (IsAuthenticated)

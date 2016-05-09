@@ -27,7 +27,7 @@ namespace ADT05.LoginTest
             {
                 bool IsAuthenticated = false;
 
-                IsAuthenticated = Validation.IsUserValidated(txtSAMAccountName.Text, "Parse_theDnsNameRootDSE", txtPassword.Text);
+                IsAuthenticated = ADValidation.IsUserValidated(txtSAMAccountName.Text, "Parse_theDnsNameRootDSE", txtPassword.Text);
                 MessageBox.Show("IsAuthenticated = " + IsAuthenticated);
 
                 if (IsAuthenticated)

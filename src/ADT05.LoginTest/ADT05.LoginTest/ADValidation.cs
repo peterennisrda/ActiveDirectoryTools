@@ -11,7 +11,7 @@ using System.Text;
 using System.Windows.Forms;
 #endregion
 
-class Validation
+class ADValidation
 {
     #region Flags
     [Flags]

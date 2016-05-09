@@ -25,7 +25,9 @@ namespace ADT05.LoginTest
             }
             try
             {
-                bool IsAuthenticated = false;
+                bool IsUserAuthenticated = false;
+                bool IsUserAuthorized = false;
+
                 string theDnsHostNameRootDSE = "";
                 string theDnsHostName = "";
                 string theRootDSE = "";
@@ -35,10 +37,10 @@ namespace ADT05.LoginTest
                 theDnsHostName = subStrings[0];
                 theRootDSE = subStrings[1];
 
-                IsAuthenticated = ADValidation.IsUserValidated(txtSAMAccountName.Text, theDnsHostName, txtPassword.Text);
-                MessageBox.Show("IsAuthenticated = " + IsAuthenticated);
+                IsUserAuthenticated = ADValidation.IsUserValidated(txtSAMAccountName.Text, theDnsHostName, txtPassword.Text);
+                //MessageBox.Show("IsAuthenticated = " + IsUserAuthenticated);
 
-                if (IsAuthenticated)
+                if (IsUserAuthenticated)
                 {
                     // The login is authenticated
                     MessageBox.Show("Login Authenticated!");
@@ -48,9 +50,12 @@ namespace ADT05.LoginTest
                     MessageBox.Show("Login Failed!");
                 }
 
-                if (txtPassword.Text == "pan")
+                IsUserAuthorized = ADValidation.IsUserInGroup(txtSAMAccountName.Text, theDnsHostName, txtAppGroup.Text);
+                MessageBox.Show("IsUserAuthorized = " + IsUserAuthorized);
+
+                if (IsUserAuthorized)
                 {
-                    // The application is authorized
+                    // The application is authorized for the user
                     MessageBox.Show("Application Authorized!");
                 }
                 else
@@ -63,11 +68,6 @@ namespace ADT05.LoginTest
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void lblUserName_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

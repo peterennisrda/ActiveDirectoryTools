@@ -57,20 +57,20 @@
             // lblUserName
             // 
             this.lblUserName.AutoSize = true;
-            this.lblUserName.Location = new System.Drawing.Point(46, 108);
+            this.lblUserName.Location = new System.Drawing.Point(90, 104);
             this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(104, 13);
+            this.lblUserName.Size = new System.Drawing.Size(63, 13);
             this.lblUserName.TabIndex = 5;
-            this.lblUserName.Text = "SAM Account Name";
+            this.lblUserName.Text = "User Name:";
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(97, 169);
+            this.lblPassword.Location = new System.Drawing.Point(94, 165);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(53, 13);
+            this.lblPassword.Size = new System.Drawing.Size(56, 13);
             this.lblPassword.TabIndex = 6;
-            this.lblPassword.Text = "Password";
+            this.lblPassword.Text = "Password:";
             // 
             // btnValidate
             // 
@@ -92,11 +92,11 @@
             // lblAppGroup
             // 
             this.lblAppGroup.AutoSize = true;
-            this.lblAppGroup.Location = new System.Drawing.Point(59, 45);
+            this.lblAppGroup.Location = new System.Drawing.Point(59, 41);
             this.lblAppGroup.Name = "lblAppGroup";
-            this.lblAppGroup.Size = new System.Drawing.Size(91, 13);
+            this.lblAppGroup.Size = new System.Drawing.Size(94, 13);
             this.lblAppGroup.TabIndex = 4;
-            this.lblAppGroup.Text = "Application Group";
+            this.lblAppGroup.Text = "Application Group:";
             // 
             // txtOutput
             // 

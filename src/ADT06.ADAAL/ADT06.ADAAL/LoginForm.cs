@@ -48,12 +48,12 @@ namespace ADT06.ADAAL
                 if (IsUserAuthenticated)
                 {
                     // The login is authenticated
-                    txtOutput.Text += "Login Authenticated!" + " \r\n";
+                    txtOutput.Text += string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + " " + txtSAMAccountName.Text + " Login Authenticated!" + " \r\n";
                     MessageBox.Show("Login Authenticated!");
                 }
                 else
                 {
-                    txtOutput.Text += "Login Failed!" + " \r\n";
+                    txtOutput.Text += string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + " " + txtSAMAccountName.Text + " Login Failed!" + " \r\n";
                     MessageBox.Show("Login Failed!");
                     ClearForm1();
                     throw new InvalidCredentialException();
@@ -65,12 +65,12 @@ namespace ADT06.ADAAL
                 if (IsUserAuthorized)
                 {
                     // The application is authorized for the user
-                    txtOutput.Text += "Application Authorized!" + " \r\n";
+                    txtOutput.Text += string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + " " + txtSAMAccountName.Text + " Application Authorized!" + " \r\n";
                     MessageBox.Show("Application Authorized!");
                 }
                 else
                 {
-                    txtOutput.Text += "Authorization Failed!" + " \r\n";
+                    txtOutput.Text += string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + " " + txtSAMAccountName.Text + " Authorization Failed!" + " \r\n";
                     MessageBox.Show("Authorization Failed!");
                     ClearForm1();
                     throw new InvalidCredentialException();

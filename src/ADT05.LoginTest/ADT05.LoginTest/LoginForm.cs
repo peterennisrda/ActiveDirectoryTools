@@ -6,6 +6,10 @@ namespace ADT05.LoginTest
 {
     public partial class Form1 : Form
     {
+        private string theDnsHostNameRootDSE = "";
+        private string theDnsHostName;
+        private string theRootDSE = "";
+
         public Form1()
         {
             InitializeComponent();
@@ -19,6 +23,7 @@ namespace ADT05.LoginTest
 
         private void btnValidate_Click(object sender, EventArgs e)
         {
+
             if (string.IsNullOrWhiteSpace(txtSAMAccountName.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
             {
                 MessageBox.Show("User Name and Password is required.");
@@ -29,14 +34,24 @@ namespace ADT05.LoginTest
                 bool IsUserAuthenticated = false;
                 bool IsUserAuthorized = false;
 
-                string theDnsHostNameRootDSE = "";
-                string theDnsHostName = "";
-                string theRootDSE = "";
+                theDnsHostNameRootDSE = "";
+                theDnsHostName = "";
+                theRootDSE = "";
 
-                theDnsHostNameRootDSE = ADValidation.RetrieveDnsHostNameRootDseDefaultNamingContext();
-                string[] subStrings = theDnsHostNameRootDSE.Split('|');
-                theDnsHostName = subStrings[0];
-                theRootDSE = subStrings[1];
+                // Non-privileged local user account on a domain PC returns this error:
+                // "The specified domain either does not exist or could not be contacted."
+                //theDnsHostNameRootDSE = ADValidation.RetrieveDnsHostNameRootDseDefaultNamingContext();
+                //MessageBox.Show("'" + theDnsHostNameRootDSE + "'");
+                //string[] subStrings = theDnsHostNameRootDSE.Split('|');
+                //theDnsHostName = subStrings[0];
+                //theRootDSE = subStrings[1];
+
+                //theDnsHostName = "RDADC.rda.local";     // Login Authenticated! - Authorization Failed!
+                //MessageBox.Show("'" + theDnsHostName + "'");
+                theDnsHostName = "rda.local";     // Login Authenticated! - Authorization Failed!
+                MessageBox.Show("'" + theDnsHostName + "'");
+                //theDnsHostName = "rda";     // Login Authenticated! - Authorization Failed!
+                //MessageBox.Show("'" + theDnsHostName + "'");
 
                 IsUserAuthenticated = ADValidation.IsUserValidated(txtSAMAccountName.Text, theDnsHostName, txtPassword.Text);
                 //MessageBox.Show("IsAuthenticated = " + IsUserAuthenticated);
@@ -71,7 +86,10 @@ namespace ADT05.LoginTest
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "ADT05 Message!" + System.Environment.NewLine +
+                    "'" + txtAppGroup.Text + "'" + System.Environment.NewLine +
+                    "'" + txtSAMAccountName.Text + "'" + System.Environment.NewLine +
+                    "'" + theDnsHostName + "'" + System.Environment.NewLine);
             }
         }
     }

@@ -8,10 +8,10 @@ namespace ADT04RootDSE
     class Program
     {
         static string dnsHostName = "";
-        static string theDnsNameRootDSE = "";
+        static string theDnsHostNameRootDSE = "";
 
         // Ref: http://stackoverflow.com/questions/4015407/determine-current-domain-controller-programmatically
-        public static string RetrieveRootDseDefaultNamingContext()
+        public static string RetrieveDnsHostNameRootDseDefaultNamingContext()
         {
             String RootDsePath = "LDAP://RootDSE";
             const string DefaultNamingContextPropertyName = "defaultNamingContext";
@@ -33,8 +33,18 @@ namespace ADT04RootDSE
         #region Main
         static void Main(string[] args)
         {
-            theDnsNameRootDSE = RetrieveRootDseDefaultNamingContext();
-            Console.WriteLine("The dnsHostName|RootDSE is " + theDnsNameRootDSE);
+            string theDnsHostName = "";
+            string theRootDSE = "";
+
+            theDnsHostNameRootDSE = RetrieveDnsHostNameRootDseDefaultNamingContext();
+            Console.WriteLine("The dnsHostName|rootDSE is " + theDnsHostNameRootDSE);
+            string[] subStrings = theDnsHostNameRootDSE.Split('|');
+
+            theDnsHostName = subStrings[0];
+            Console.WriteLine("The dnsHostName is " + theDnsHostName);
+
+            theRootDSE = subStrings[1];
+            Console.WriteLine("The rootDse is " + theRootDSE);
 
             // Ref: http://www.codeproject.com/Articles/667301/How-to-query-Active-Directory-without-hard-coding
             using (DirectoryEntry rootDSE = new DirectoryEntry("LDAP://RootDSE"))

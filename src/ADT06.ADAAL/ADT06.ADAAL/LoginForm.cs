@@ -19,6 +19,8 @@ namespace ADT06.ADAAL
 
         private void btnValidate_Click(object sender, EventArgs e)
         {
+
+            // ann is commenting
             if (string.IsNullOrWhiteSpace(txtAppGroup.Text) ||
                 string.IsNullOrWhiteSpace(txtSAMAccountName.Text) || 
                 string.IsNullOrWhiteSpace(txtPassword.Text))

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RDA.Auth;
+using RDA.Auth.Providers;
+using System;
 using System.Security.Authentication;
 using System.Windows.Forms;
 
@@ -6,9 +8,13 @@ namespace ADT06.ADAAL
 {
     public partial class Form1 : Form
     {
+        AuthorizeCOM com = new AuthorizeCOM();
         public Form1()
         {
             InitializeComponent();
+            txtAppGroup.Text = "SARAnet Users";
+            txtSAMAccountName.Text = "aconnolly";
+            txtPassword.Text = "VBNazx7*9";
         }
 
         private void ClearForm1()
@@ -31,14 +37,20 @@ namespace ADT06.ADAAL
             }
             try
             {
+              //  string result = COMTest.ValidateCredentialsTLS(theUserName, theUserDomainName, theUserPassword, out serverName);
+                
+              // txtOutput.Text = result;
+                
                 bool IsUserAuthenticated = false;
                 bool IsUserAuthorized = false;
+                ADValidation ad = new ADValidation();
 
                 string theDnsHostNameRootDSE = "";
                 string theDnsHostName = "";
                 string theRootDSE = "";
+                string serverName;
 
-                theDnsHostNameRootDSE = ADValidation.RetrieveDnsHostNameRootDseDefaultNamingContext();
+                theDnsHostNameRootDSE = ad.RetrieveDnsHostNameRootDseDefaultNamingContext();
                 string[] subStrings = theDnsHostNameRootDSE.Split('|');
                 theDnsHostName = subStrings[0];
                 txtOutput.Text += "dnsHostName: " + theDnsHostName + " \r\n";
@@ -46,7 +58,11 @@ namespace ADT06.ADAAL
                 txtOutput.Text += "SAM Account Name: " + txtSAMAccountName.Text + " \r\n";
                 theRootDSE = subStrings[1];
 
+
                 IsUserAuthenticated = ADValidation.IsUserValidated(txtSAMAccountName.Text, theDnsHostName, txtPassword.Text);
+
+                bool result = com.Authenticate(txtSAMAccountName.Text, txtPassword.Text, theDnsHostName);
+                
                 //MessageBox.Show("IsAuthenticated = " + IsUserAuthenticated);
 
                 if (IsUserAuthenticated)
@@ -64,6 +80,7 @@ namespace ADT06.ADAAL
                 }
 
                 IsUserAuthorized = ADValidation.IsUserInGroup(txtSAMAccountName.Text, theDnsHostName, txtAppGroup.Text);
+                result = com.Authorize(txtSAMAccountName.Text, theDnsHostName, txtAppGroup.Text);
                 //MessageBox.Show("IsUserAuthorized = " + IsUserAuthorized);
 
                 if (IsUserAuthorized)

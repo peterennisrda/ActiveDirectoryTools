@@ -13,7 +13,7 @@ Public Const THE_XML_FOLDER = ".\src\xml\"
 Public Const THE_XML_DATA_FOLDER = ".\src\xmldata\"
 Public Const THE_BACK_END_SOURCE_FOLDER = "NONE"        ' ".\srcbe\"
 Public Const THE_BACK_END_XML_FOLDER = ".\srcbe\xml\"
-Public Const THE_BACK_END_DB1 = "NONE"
+Public Const THE_BACK_END_DB1 = "NONE"                  ' "C:\SOME\LOCATION\FOR\BACKEND.accdb"
 '
 
 Public Function getMyVersion() As String
